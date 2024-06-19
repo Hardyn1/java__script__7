@@ -5,13 +5,15 @@
 // имя, возраст, пол, фильмы(массив), семейное положение(boolean).
 // А потом извне удалите последнее свойство.
 let films = ["pirates", "pirates on strange tides", "pirates3"];
+
 let favoriteActor = {
-	firstName: "Johnny",
-	lastName: "Depp",
-	gender: "male",
-	filmography: films,
-	familyStatus: true
 };
+
+favoriteActor.firstName = "Johnnny";
+favoriteActor.lastName = "Depp";
+favoriteActor.gender = "male";
+favoriteActor.filmography = films,
+favoriteActor.familyStatus = true;
 
 delete favoriteActor.familyStatus;
 console.log(favoriteActor);
@@ -37,17 +39,19 @@ let staff = {
 	'Marina' : 5187,
 	'Oleg' : 3309,
 	'Anna' : 2304,
-	returnStaff: function(){
-		for(price in staff) {
-			if(staff[price] >= 5000) {
-				console.log(price + " : " +staff[price]);
-			}
-			
-		}
-	}
+	
 };
 
-staff.returnStaff();
+function returnHighestPaidStaff(){
+	let hightPaid = Math.max(...Object.values(staff));
+	for(let name in staff){
+		if(staff[name] === hightPaid){
+			console.log(name + " is the highest paid staff with salary : " + hightPaid);
+		};
+	};
+};
+
+returnHighestPaidStaff(staff);
 
 // TASK 4.
 // Необходимо написать МЕТОД , который будет находить женщин
@@ -59,14 +63,20 @@ staff.returnStaff();
         'Marina' : {salary: 5187, gender: 'female'},
         'Oleg' : {salary: 3309, gender: 'male'},
         'Anna' : {salary: 2304, gender: 'female'},
+		findWomen: function() {
+			for(let women in staffWithGender){
+				if(this[women].gender === 'female' && typeof this[women] === 'object'){
+					let originalNumber = this[women].salary;
+					let increasedNumber = Math.floor(originalNumber * 1.10);
+					this[women].salary = increasedNumber;
+				} else if (staffWithGender[women].length < 1) {
+					console.log(staffWithGender);
+				};
+			};
+		}
 };
 
-for(key in staffWithGender){
-	if(staffWithGender[key].gender === 'female'){
-		staffWithGender[key].salary += 10;
-		console.log(staffWithGender);
-	};
-};
+staffWithGender.findWomen();
 
 // Старый код, закоментировал для себя.
 
@@ -86,6 +96,7 @@ for(key in staffWithGender){
 // и создайте внутри объекта метод. 
 // Этот метод должен выводить в консоль всю информацию об этом артисте.
 // Каждое свойство должно выводиться на отдельной строке.
+
 let favMusician = {
 	name: "Hans Zimmer",
 	gender: "male",
@@ -93,10 +104,13 @@ let favMusician = {
 	height: 173,
 	songList: "Time Inception, Dark Knight, Transformers",
 	returnProperty: function(){
-		for(list in favMusician){
-			console.log(favMusician[list]);
+		for(let list in this){
+			if(typeof this[list] !== 'function'){
+				console.log(list  + " : " + this[list]);
+			};
 		};
 	}
 };
 
 favMusician.returnProperty();
+
